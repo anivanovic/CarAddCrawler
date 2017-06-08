@@ -6,6 +6,7 @@ Created on 4. lip 2017.
 from sqlalchemy.orm import sessionmaker
 from carspider.db.db import connect
 from carspider.db.CarAdd import CarAdd
+from sqlalchemy.sql.expression import exists
 
 class CarAddDbPipeline(object):
 	
@@ -18,12 +19,16 @@ class CarAddDbPipeline(object):
 		
 		carAdd = CarAdd(**item)
 		
-		
 		try:
-			print('adding car to db')
-			session.add(carAdd)
-			session.commit()
-			print('successful adding')
+			inDb = session.query(exists().where(CarAdd.web_id == carAdd.web_id)).scalar()
+			
+			if not inDb:
+				print('adding car to db')
+				session.add(carAdd)
+				session.commit()
+				print('successful adding')
+			else:
+				print('in db. skipping car')
 		except:
 			session.rollback()
 			raise
