@@ -117,7 +117,6 @@ class CarSpider(scrapy.Spider):
 				if not self.noData:
 					yield scrapy.Request(url=url, callback=self.parse)
 				else:
-					print('skiping link ' + url)
 					continue
 	
 	def parse(self, response):
@@ -127,7 +126,6 @@ class CarSpider(scrapy.Spider):
 				link = oglas.extract()
 				if '/auti/' in link:
 					followLink = rootUrl + link
-					print('following ' + followLink)
 					yield response.follow(followLink, callback=self.followCarLink)
 		else:
 			self.noData = True
@@ -149,7 +147,8 @@ class CarSpider(scrapy.Spider):
 			'prekupac' : False,
 			'lokacija' : location.extract_first(),
 			'cijena' : int(price.extract_first().strip().replace('.', '')),
-			'web_id' : int(addId.extract_first().strip())
+			'web_id' : int(addId.extract_first().strip()),
+			'aktivan' : True
 		}
 		
 		phoneNumberStr = phoneNumber.extract_first()
@@ -160,7 +159,6 @@ class CarSpider(scrapy.Spider):
 		for row in dataRows:
 			name = row.xpath('th/text()').extract_first().strip().replace(':', '')
 			value = row.xpath('td/text()').extract_first()
-			print('[{}: {}]'.format(name, value))
 			
 			if name in attributeMapping:
 				self.processCarMetadata(data, name, value)
@@ -187,14 +185,6 @@ class CarSpider(scrapy.Spider):
 			data[attribute] = value and value == 'Da'
 		else:
 			data[attribute] = value
-		
-		
-		
-		
-		
-		
-		
-		
 		
 		
 		

@@ -29,3 +29,4 @@ class CarAddItem(Item):
 	lokacija = Field()
 	telefon = Field()
 	web_id = Field()
+	aktivan = Field()
