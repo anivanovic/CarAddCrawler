@@ -11,6 +11,6 @@ ITEM_PIPELINES = {
 
 SPIDER_MODULES = ['carspider.main']
 
-LOG_LEVEL = 'ERROR'
+LOG_LEVEL = 'INFO'
 LOG_FILE = 'error.log'
 LOG_ENABLED = True
