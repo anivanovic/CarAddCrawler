@@ -48,6 +48,7 @@ class CarAddDbPipeline(object):
 				self.newAdds += 1
 			else:
 				session.query(CarAdd).filter(CarAdd.web_id == carAdd.web_id).update({CarAdd.aktivan : True})
+				session.commit()
 				self.stillActive += 1
 		except:
 			session.rollback()
