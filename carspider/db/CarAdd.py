@@ -35,3 +35,4 @@ class CarAdd(Base):
 	telefon = Column(String)
 	web_id = Column(Integer)
 	aktivan = Column(Boolean)
+	novi = Column(Boolean)

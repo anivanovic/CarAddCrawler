@@ -148,7 +148,8 @@ class CarSpider(scrapy.Spider):
 			'lokacija' : location.extract_first(),
 			'cijena' : int(price.extract_first().strip().replace('.', '')),
 			'web_id' : int(addId.extract_first().strip()),
-			'aktivan' : True
+			'aktivan' : True,
+			'novi' : True
 		}
 		
 		phoneNumberStr = phoneNumber.extract_first()

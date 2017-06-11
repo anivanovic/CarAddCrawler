@@ -20,7 +20,8 @@ class CarAddDbPipeline(object):
 		session = self.Session()
 		
 		try:
-			session.query(CarAdd).update({CarAdd.aktivan : False})
+			session.query(CarAdd).update({CarAdd.aktivan : False,
+										CarAdd.novi : False})
 			session.commit()
 			logging.info('Updated car adds to active : False')
 		except:
