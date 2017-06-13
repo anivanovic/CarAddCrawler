@@ -36,3 +36,4 @@ class CarAdd(Base):
 	web_id = Column(Integer)
 	aktivan = Column(Boolean)
 	novi = Column(Boolean)
+	image_link = Column(String)

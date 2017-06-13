@@ -31,4 +31,4 @@ class CarAddItem(Item):
 	web_id = Field()
 	aktivan = Field()
 	novi = Field()
-	imageLink = Field()
+	image_link = Field()

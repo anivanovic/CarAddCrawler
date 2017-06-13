@@ -126,7 +126,7 @@ class CarSpider(scrapy.Spider):
 				if '/auti/' in link:
 					followLink = rootUrl + link
 					res = response.follow(followLink, callback=self.followCarLink)
-					res.meta['imgLink'] = response.xpath("//a[contains(@href, '" + link + "')]/img/@data-src")
+					res.meta['imgLink'] = response.xpath("//a[contains(@href, '" + link + "')]/img/@data-src").extract_first()
 					yield res
 		else:
 			self.noData = True
@@ -151,7 +151,7 @@ class CarSpider(scrapy.Spider):
 			'web_id' : int(addId.extract_first().strip()),
 			'aktivan' : True,
 			'novi' : True,
-			'imageLink' : imgLink
+			'image_link' : imgLink
 		}
 		
 		phoneNumberStr = phoneNumber.extract_first()
