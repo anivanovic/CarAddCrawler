@@ -8,6 +8,7 @@ from carspider.db.db import connect
 from carspider.db.CarAdd import CarAdd
 from sqlalchemy.sql.expression import exists
 import logging
+from urllib.request import urlretrieve
 
 class CarAddDbPipeline(object):
 	
@@ -46,6 +47,7 @@ class CarAddDbPipeline(object):
 			if not inDb:
 				session.add(carAdd)
 				session.commit()
+				urlretrieve(item.imageLink, '/usr/share/nginx/html/' + carAdd.web_id + '.jpg')
 				self.newAdds += 1
 			else:
 				session.query(CarAdd).filter(CarAdd.web_id == carAdd.web_id).update({CarAdd.aktivan : True})

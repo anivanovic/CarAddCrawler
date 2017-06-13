@@ -121,12 +121,13 @@ class CarSpider(scrapy.Spider):
 	
 	def parse(self, response):
 		if 'Trenutno nema oglasa koji zadovoljavaju postavljene kriterije pretrage.' not in response.text:
-			print("trazim aute")
 			for oglas in response.css('li.EntityList-item::attr(data-href)'):
 				link = oglas.extract()
 				if '/auti/' in link:
 					followLink = rootUrl + link
-					yield response.follow(followLink, callback=self.followCarLink)
+					res = response.follow(followLink, callback=self.followCarLink)
+					res.meta['imgLink'] = response.xpath("//a[contains(@href, '" + link + "')]/img/@data-src")
+					yield res
 		else:
 			self.noData = True
 				
@@ -138,7 +139,7 @@ class CarSpider(scrapy.Spider):
 		addDate = selector.xpath("(//span[contains(text(), 'Objavljen:')]/../time/@datetime)[1]")
 		phoneNumber = selector.xpath("//a[contains(@class, 'link link-tel link-tel--alpha')]/@href")
 		price = selector.xpath("(//strong[contains(@class, 'price price--hrk')]/text())[1]")
-		
+		imgLink = "http:" + response.meta['imgLink']
 		
 		data = {
 			'link' : response.url,
@@ -149,7 +150,8 @@ class CarSpider(scrapy.Spider):
 			'cijena' : int(price.extract_first().strip().replace('.', '')),
 			'web_id' : int(addId.extract_first().strip()),
 			'aktivan' : True,
-			'novi' : True
+			'novi' : True,
+			'imageLink' : imgLink
 		}
 		
 		phoneNumberStr = phoneNumber.extract_first()
