@@ -47,7 +47,7 @@ class CarAddDbPipeline(object):
 			if not inDb:
 				session.add(carAdd)
 				session.commit()
-				urlretrieve(item.imageLink, '/usr/share/nginx/html/' + carAdd.get('web_id') + '.jpg')
+				urlretrieve(item.imageLink, '/usr/share/nginx/html/' + item.get('web_id') + '.jpg')
 				self.newAdds += 1
 			else:
 				session.query(CarAdd).filter(CarAdd.web_id == carAdd.web_id).update({CarAdd.aktivan : True})
