@@ -10,6 +10,12 @@ Created on 13. lip 2017.
 @author: Antonije
 '''
 mailMessage = '''
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Auto oglasi</title>
+</head>
 <body style="font-family:sans-serif, Arial;" >
 <div class="center" style="font-family:sans-serif, Arial;background-color:#eff0f1;width:600px;margin-top:auto;margin-bottom:auto;margin-right:auto;margin-left:auto;padding-bottom:20px;" >
     <div class="title" style="font-family:sans-serif, Arial;text-align:center;background-color:#5042f4;padding-top:20px;padding-bottom:20px;padding-right:20px;padding-left:20px;color:white;" >
@@ -18,6 +24,7 @@ mailMessage = '''
     :adds
 </div>
 </body>
+</html>
 '''
 
 add_template = '''
