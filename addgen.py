@@ -100,18 +100,18 @@ def createAdds(res):
 	adds = ''
 	
 	for add in res:
-		addText = add_template.replace(':carImageLink', 'http://165.227.131.152/' + str(add.web_id) + '.jpg')
-		addText = addText.replace(':marka', add.marka)
-		addText = addText.replace(':model', add.model)
-		addText = addText.replace(':cijena', str(add.cijena))
-		addText = addText.replace(':kilometri', str(add.kilometri))
-		addText = addText.replace(':godina', str(add.godina))
-		addText = addText.replace(':motor', add.motor)
-		addText = addText.replace(':garaziran', str(add.garaziran))
-		addText = addText.replace(':prvi', add.vlasnik)
-		addText = addText.replace(':registracija', str(add.registracija_mjesec) + '/' + str(add.registracija_godina))
-		addText = addText.replace(':datum', str(add.datum_objave))
-		addText = addText.replace(':carAdd', add.link)
+		addText = add_template.replace(':carImageLink', 'http://165.227.131.152/' + getStr(add.web_id) + '.jpg')
+		addText = addText.replace(':marka', getStr(add.marka))
+		addText = addText.replace(':model', getStr(add.model))
+		addText = addText.replace(':cijena', getStr(add.cijena))
+		addText = addText.replace(':kilometri', getStr(add.kilometri))
+		addText = addText.replace(':godina', getStr(add.godina))
+		addText = addText.replace(':motor', getStr(add.motor))
+		addText = addText.replace(':garaziran', getStr(add.garaziran))
+		addText = addText.replace(':prvi', getStr(add.vlasnik))
+		addText = addText.replace(':registracija', getStr(add.registracija_mjesec) + '/' + getStr(add.registracija_godina))
+		addText = addText.replace(':datum', getStr(add.datum_objave))
+		addText = addText.replace(':carAdd', getStr(add.link))
 		adds += addText
 		
 	return mailMessage.replace(':adds', adds)
@@ -140,3 +140,10 @@ def getAddMail():
 		email = generateMail(addMessage)
 		
 		return email
+	
+def getStr(value):
+	if value:
+		return str(value)
+	else:
+		return ''
+	
