@@ -1,4 +1,5 @@
 from email.mime.text import MIMEText
+from email.mime.multipart import MIMEMultipart
 from carspider.db.db import connect
 from sqlalchemy import or_
 from sqlalchemy.sql import select
@@ -96,11 +97,14 @@ add_template = '''
 '''
 
 def generateMail(message):
-	mail = MIMEText(message)
-
+	mail = MIMEMultipart('alternative')
+	
 	mail['Subject'] = 'Auto oglas ažuriranje'
 	mail['From'] = 'antonije999@gmail.com'
 	mail['To'] = 'antonije999@gmail.com'
+	
+	html = MIMEText(message, 'html')
+	mail.attach(html)
 	return mail.as_string()
 
 def createAdds(res):
@@ -138,7 +142,8 @@ def getCars():
 	
 	res = conn.execute(s)
 	conn.close()
-	return res
+	if res.first():
+		return res
 
 def getAddMail():
 	cars = getCars()
