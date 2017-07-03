@@ -50,7 +50,18 @@ class CarAddDbPipeline(object):
 				urlretrieve(item.get('image_link'), '/usr/share/nginx/html/' + str(item.get('web_id')) + '.jpg')
 				self.newAdds += 1
 			else:
-				session.query(CarAdd).filter(CarAdd.web_id == carAdd.web_id).update({CarAdd.aktivan : True})
+				rs = session.query(CarAdd).filter(CarAdd.web_id == carAdd.web_id)
+				
+				existingCarAdd = rs.first()
+				if existingCarAdd.cijena != carAdd.cijena:
+					session.query(CarAdd).filter(CarAdd.web_id == carAdd.web_id)\
+							.update({
+							CarAdd.aktivan : True,
+							CarAdd.updated : True
+						})
+				else:
+					session.query(CarAdd).filter(CarAdd.web_id == carAdd.web_id).update({ CarAdd.aktivan : True })
+				
 				session.commit()
 				self.stillActive += 1
 		except:

@@ -151,7 +151,9 @@ class CarSpider(scrapy.Spider):
 			'web_id' : int(addId.extract_first().strip()),
 			'aktivan' : True,
 			'novi' : True,
-			'image_link' : imgLink
+			'image_link' : imgLink,
+			'updated' : False,
+			'newsletter' : True
 		}
 		
 		phoneNumberStr = phoneNumber.extract_first()

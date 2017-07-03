@@ -37,3 +37,5 @@ class CarAdd(Base):
 	aktivan = Column(Boolean)
 	novi = Column(Boolean)
 	image_link = Column(String)
+	updated = Column(Boolean)
+	newsletter = Column(Boolean)

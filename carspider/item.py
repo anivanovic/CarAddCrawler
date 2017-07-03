@@ -32,3 +32,5 @@ class CarAddItem(Item):
 	aktivan = Field()
 	novi = Field()
 	image_link = Field()
+	updated = Field()
+	newsletter = Field()
