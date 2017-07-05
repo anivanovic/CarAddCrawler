@@ -125,7 +125,8 @@ def createAdds(res):
 		addText = addText.replace(':carAdd', getStr(add.link))
 		adds += addText
 		
-	return mailMessage.replace(':adds', adds)
+	if adds:
+		return mailMessage.replace(':adds', adds)
 
 def exeSql(sql):
 	engine = connect()
@@ -133,8 +134,7 @@ def exeSql(sql):
 	
 	res = conn.execute(sql)
 	conn.close()
-	if res.first():
-		return res
+	return res
 	
 def getCarAlert():
 	sql = select([CarAdd])\
@@ -164,8 +164,10 @@ def getUpdatedCars():
 	
 def getCarMail(carSupplier, subject):
 	cars = carSupplier()
-	if cars:
-		addMessage = createAdds(cars)
+	
+	addMessage = createAdds(cars)
+	
+	if addMessage:
 		email = generateMail(addMessage, subject)
 		
 		return email
