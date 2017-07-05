@@ -111,7 +111,7 @@ def createAdds(res):
 	adds = ''
 	
 	for add in res:
-		addText = add_template.replace(':carImageLink', 'http://165.227.131.152/' + getStr(add.web_id) + '.jpg')
+		addText = add_template.replace(':carImageLink', getStr(add.image_link))
 		addText = addText.replace(':marka', getStr(add.marka))
 		addText = addText.replace(':model', getStr(add.model))
 		addText = addText.replace(':cijena', getStr(add.cijena))
