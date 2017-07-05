@@ -47,7 +47,9 @@ class CarAddDbPipeline(object):
 			if not inDb:
 				session.add(carAdd)
 				session.commit()
-				urlretrieve(item.get('image_link'), '/usr/share/nginx/html/' + str(item.get('web_id')) + '.jpg')
+				filename = '/usr/share/nginx/html/' + str(item.get('web_id')) + '.jpg'
+				logging.info("saving image " + str(item.get('image_link')) + " to " + filename + " file.")
+				urlretrieve(item.get('image_link'), filename)
 				self.newAdds += 1
 			else:
 				rs = session.query(CarAdd).filter(CarAdd.web_id == carAdd.web_id)
