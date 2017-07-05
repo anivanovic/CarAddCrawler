@@ -96,10 +96,10 @@ add_template = '''
 </div>
 '''
 
-def generateMail(message):
+def generateMail(message, subject):
 	mail = MIMEMultipart('alternative')
 	
-	mail['Subject'] = 'Auto oglas ažuriranje'
+	mail['Subject'] = subject
 	mail['From'] = 'antonije999@gmail.com'
 	mail['To'] = 'antonije999@gmail.com'
 	
@@ -127,31 +127,58 @@ def createAdds(res):
 		
 	return mailMessage.replace(':adds', adds)
 
-def getCars():
+def exeSql(sql):
 	engine = connect()
 	conn = engine.connect()
-		
-	s = select([CarAdd])\
+	
+	res = conn.execute(sql)
+	conn.close()
+	if res.first():
+		return res
+	
+def getCarAlert():
+	sql = select([CarAdd])\
 		.where(CarAdd.cijena < 26000)\
 		.where(CarAdd.godina > 2004)\
 		.where(CarAdd.kilometri < 110000)\
 		.where(or_(CarAdd.garaziran == True, CarAdd.garaziran == None))\
 		.where(or_(CarAdd.vlasnik == 'prvi', CarAdd.vlasnik == None))\
 		.where(CarAdd.aktivan == True)\
-		.where(CarAdd.novi == True)\
+		.where(CarAdd.novi == True)
 	
-	res = conn.execute(s)
-	conn.close()
-	if res.first():
-		return res
+	return exeSql(sql)
+	
+def getNewCars():
+	sql = select([CarAdd])\
+		.where(CarAdd.newsletter == True)\
+		.where(CarAdd.aktivan == True)
+		
+	return exeSql(sql)
 
-def getAddMail():
-	cars = getCars()
+def getUpdatedCars():
+	sql = select([CarAdd])\
+		.where(CarAdd.updated == True)\
+		.where(CarAdd.aktivan == True)
+		
+	return exeSql(sql)
+	
+def getCarMail(carSupplier, subject):
+	cars = carSupplier()
 	if cars:
 		addMessage = createAdds(cars)
-		email = generateMail(addMessage)
+		email = generateMail(addMessage, subject)
 		
 		return email
+
+
+def getAlertCarsMail():
+	return getCarMail(getCarAlert, 'Obavijest dobar auto pronađen')
+
+def getNewCarsMail():
+	return getCarMail(getNewCars, 'Novih auta')
+
+def getUpdatedCarsMail():
+	return getCarMail(getUpdatedCars, 'Snižena cijena autima')
 	
 def getStr(value):
 	if value:
