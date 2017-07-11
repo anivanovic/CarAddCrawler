@@ -96,8 +96,8 @@ attributeMapping = {
 	'Registriran do' : 'registracija_godina'}
 
 
-cijena = '4100'
-kilometri = '190000'
+cijena = '4500'
+kilometri = '180000'
 godineOd = '2003'
 pageParam = '&page='
 carParam = '&modelId='

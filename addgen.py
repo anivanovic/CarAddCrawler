@@ -138,9 +138,9 @@ def exeSql(sql):
 	
 def getCarAlert():
 	sql = select([CarAdd])\
-		.where(CarAdd.cijena < 26000)\
-		.where(CarAdd.godina > 2004)\
-		.where(CarAdd.kilometri < 110000)\
+		.where(CarAdd.cijena < 30000)\
+		.where(CarAdd.godina > 2006)\
+		.where(CarAdd.kilometri < 120000)\
 		.where(or_(CarAdd.garaziran == True, CarAdd.garaziran == None))\
 		.where(or_(CarAdd.vlasnik == 'prvi', CarAdd.vlasnik == None))\
 		.where(CarAdd.aktivan == True)\
@@ -174,10 +174,10 @@ def getCarMail(carSupplier, subject):
 
 
 def getAlertCarsMail():
-	return getCarMail(getCarAlert, 'Obavijest dobar auto pronađen')
+	return getCarMail(getCarAlert, 'DOBAR AUTO PRONAĐEN')
 
 def getNewCarsMail():
-	return getCarMail(getNewCars, 'Novih auta')
+	return getCarMail(getNewCars, 'Novi auti')
 
 def getUpdatedCarsMail():
 	return getCarMail(getUpdatedCars, 'Snižena cijena autima')
