@@ -55,7 +55,8 @@ class CarAddDbPipeline(object):
 					session.query(CarAdd).filter(CarAdd.web_id == carAdd.web_id)\
 							.update({
 							CarAdd.aktivan : True,
-							CarAdd.updated : True
+							CarAdd.updated : True,
+							CarAdd.cijena : carAdd.cijena
 						})
 				else:
 					session.query(CarAdd).filter(CarAdd.web_id == carAdd.web_id).update({ CarAdd.aktivan : True })
