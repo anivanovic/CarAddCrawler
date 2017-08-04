@@ -13,14 +13,14 @@ carIds = [
 		#"11030", #Cadillac
 		"11041", #Chevrolet
 		#"11061", #Chrysler
-		#"11079", #Citroen
-		#"11117", #Dacia
+		"11079", #Citroen
+		"11117", #Dacia
 		"11119", #Daewoo
-		#"11134", #Daihatsu
+		"11134", #Daihatsu
 		#"11149", #Dodge
 		#"12311", #Dongfeng
 		#"11160", #Ferrari
-		#"11179", #Fiat
+		"11179", #Fiat
 		"11221", #Ford
 		#"12630", #GMC
 		#"11262", #Great Wall Motor
@@ -34,7 +34,7 @@ carIds = [
 		"11348", #Kia
 		#"11372", #Lada
 		#"11383", #Lamborghini
-		#"11389", #Lancia
+		"11389", #Lancia
 		#"11408", #Land Rover
 		#"11413", #Lexus
 		#"11421", #Lincoln
@@ -48,9 +48,9 @@ carIds = [
 		"11517", #MINI
 		"11521", #Mitsubishi
 		"11540", #Nissan
-		#"11574", #NSU
+		"11574", #NSU
 		"11576", #Opel
-		#"11617", #Peugeot
+		"11617", #Peugeot
 		#"11657", #Pontiac
 		#"11664", #Porsche
 		#"12186", #Puch
@@ -61,7 +61,7 @@ carIds = [
 		#"11774", #Saab
 		#"12164", #Santana
 		"11783", #Seat
-		#"11815", #Smart
+		"11815", #Smart
 		#"11821", #Ssang Yong
 		"11827", #Subaru
 		"11845", #Suzuki
@@ -96,8 +96,8 @@ attributeMapping = {
 	'Registriran do' : 'registracija_godina'}
 
 
-cijena = '4500'
-kilometri = '180000'
+cijena = '5000'
+kilometri = '130000'
 godineOd = '2003'
 pageParam = '&page='
 carParam = '&modelId='
