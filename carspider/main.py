@@ -7,16 +7,16 @@ carIds = [
 		#"10923", #Alfa Romeo
 		#"10949", #Aro
 		#"10952", #Aston Martin
-		#"10962", #Audi
+		"10962", #Audi
 		#"10994", #Bentley
-		#"11005", #BMW
+		"11005", #BMW
 		#"11030", #Cadillac
 		"11041", #Chevrolet
 		#"11061", #Chrysler
-		"11079", #Citroen
-		"11117", #Dacia
-		"11119", #Daewoo
-		"11134", #Daihatsu
+		#"11079", #Citroen
+		#"11117", #Dacia
+		#"11119", #Daewoo
+		#"11134", #Daihatsu
 		#"11149", #Dodge
 		#"12311", #Dongfeng
 		#"11160", #Ferrari
@@ -43,12 +43,12 @@ carIds = [
 		#"11429", #Maserati
 		#"11445", #Maybach
 		"11448", #Mazda
-		#"11481", #Mercedes
+		"11481", #Mercedes
 		#"11515", #MG
-		"11517", #MINI
-		"11521", #Mitsubishi
-		"11540", #Nissan
-		"11574", #NSU
+		#"11517", #MINI
+		#"11521", #Mitsubishi
+		#"11540", #Nissan
+		#"11574", #NSU
 		"11576", #Opel
 		"11617", #Peugeot
 		#"11657", #Pontiac
@@ -63,7 +63,7 @@ carIds = [
 		"11783", #Seat
 		"11815", #Smart
 		#"11821", #Ssang Yong
-		"11827", #Subaru
+		#"11827", #Subaru
 		"11845", #Suzuki
 		"11796", #Skoda
 		#"12296", #Tata
@@ -96,9 +96,9 @@ attributeMapping = {
 	'Registriran do' : 'registracija_godina'}
 
 
-cijena = '5000'
-kilometri = '130000'
-godineOd = '2003'
+cijena = '6000'
+kilometri = '160000'
+godineOd = '2006'
 pageParam = '&page='
 carParam = '&modelId='
 startUrl = 'http://www.njuskalo.hr/rabljeni-auti?price%5Bmax%5D=' + cijena + '&yearManufactured%5Bmin%5D=' + godineOd + '&mileage%5Bmax%5D=' + kilometri
