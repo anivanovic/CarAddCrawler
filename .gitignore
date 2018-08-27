@@ -1,5 +1,5 @@
 __pycache__
 error.log
-sendmail.py
+mail_settings.py
 /newCars.py
 /updatedCars.py
