@@ -5,7 +5,11 @@ from datetime import datetime
 import logging
 
 areas = [
-		'dublin-2'
+		'dublin-2',
+		'dublin-1',
+		'dublin-4',
+		'dublin-6',
+		'grand-canal-dock'
 		]
 
 attributeMapping = {
