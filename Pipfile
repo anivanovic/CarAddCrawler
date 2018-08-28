@@ -9,6 +9,7 @@ pylint = "*"
 [packages]
 scrapy = "*"
 sqlalchemy = "*"
+"psycopg2" = "*"
 
 [requires]
 python_version = "2.7"

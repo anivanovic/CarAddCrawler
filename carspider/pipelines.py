@@ -41,14 +41,14 @@ class CarAddDbPipeline(object):
 		carAdd = CarAdd(**item)
 		
 		try:
-			inDb = session.query(exists().where(CarAdd.web_id == carAdd.web_id)).scalar()
+			inDb = session.query(exists().where(CarAdd.link == carAdd.link)).scalar()
 			
 			if not inDb:
 				session.add(carAdd)
 				session.commit()
 				self.newAdds += 1
 			else:
-				rs = session.query(CarAdd).filter(CarAdd.web_id == carAdd.web_id)
+				rs = session.query(CarAdd).filter(CarAdd.link == carAdd.link)
 				
 				existingCarAdd = rs.first()
 				if existingCarAdd.cijena != carAdd.cijena:

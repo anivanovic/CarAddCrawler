@@ -5,9 +5,9 @@ DATABASE = {
     'drivername': 'postgres',
     'host': 'localhost',
     'port': '5432',
-    'username': 'postgres',
+    'username': 'scrapy',
     'password': 'admin123',
-    'database': 'auti'
+    'database': 'stanovi'
 }
 
 def connect():

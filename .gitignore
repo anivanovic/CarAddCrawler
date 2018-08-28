@@ -3,3 +3,4 @@ error.log
 mail_settings.py
 /newCars.py
 /updatedCars.py
+*.pyc

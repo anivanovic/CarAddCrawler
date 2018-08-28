@@ -1,3 +1,4 @@
+# coding=utf-8
 from email.mime.text import MIMEText
 from email.mime.multipart import MIMEMultipart
 from carspider.db.db import connect
@@ -20,7 +21,7 @@ mailMessage = '''
 <body style="font-family:sans-serif, Arial;" >
 <div class="center" style="font-family:sans-serif, Arial;background-color:#eff0f1;width:600px;margin-top:auto;margin-bottom:auto;margin-right:auto;margin-left:auto;padding-bottom:20px;" >
     <div class="title" style="font-family:sans-serif, Arial;text-align:center;background-color:#5042f4;padding-top:20px;padding-bottom:20px;padding-right:20px;padding-left:20px;color:white;" >
-        <h3 style="font-family:sans-serif, Arial;" >Pronađen novi dobar auto</h3>
+        <h3 style="font-family:sans-serif, Arial;" >Pronaden novi stan</h3>
     </div>
     :adds
 </div>
@@ -42,42 +43,7 @@ add_template = '''
                 </tr>
                 <tr style="font-family:sans-serif, Arial;" >
                     <td style="font-family:sans-serif, Arial;" >
-                        <p style="font-family:sans-serif, Arial;margin-top:0;margin-bottom:0;margin-right:0;margin-left:0;" ><span class="strong" style="font-family:sans-serif, Arial;font-weight:bold;" >Marka:</span> :marka</p>
-                    </td>
-                </tr>
-                <tr style="font-family:sans-serif, Arial;" >
-                    <td style="font-family:sans-serif, Arial;" >
-                        <p style="font-family:sans-serif, Arial;margin-top:0;margin-bottom:0;margin-right:0;margin-left:0;" ><span class="strong" style="font-family:sans-serif, Arial;font-weight:bold;" >Model:</span> :model</p>
-                    </td>
-                </tr>
-                <tr style="font-family:sans-serif, Arial;" >
-                    <td style="font-family:sans-serif, Arial;" >
-                        <p style="font-family:sans-serif, Arial;margin-top:0;margin-bottom:0;margin-right:0;margin-left:0;" ><span class="strong" style="font-family:sans-serif, Arial;font-weight:bold;" >Kilometri:</span> :kilometri km</p>
-                    </td>
-                </tr>
-                <tr style="font-family:sans-serif, Arial;" >
-                    <td style="font-family:sans-serif, Arial;" >
-                        <p style="font-family:sans-serif, Arial;margin-top:0;margin-bottom:0;margin-right:0;margin-left:0;" ><span class="strong" style="font-family:sans-serif, Arial;font-weight:bold;" >Godina:</span> :godina. g.</p>
-                    </td>
-                </tr>
-                <tr style="font-family:sans-serif, Arial;" >
-                    <td style="font-family:sans-serif, Arial;" >
-                        <p style="font-family:sans-serif, Arial;margin-top:0;margin-bottom:0;margin-right:0;margin-left:0;" ><span class="strong" style="font-family:sans-serif, Arial;font-weight:bold;" >Motor:</span> :motor kW</p>
-                    </td>
-                </tr>
-                <tr style="font-family:sans-serif, Arial;" >
-                    <td style="font-family:sans-serif, Arial;" >
-                        <p style="font-family:sans-serif, Arial;margin-top:0;margin-bottom:0;margin-right:0;margin-left:0;" ><span class="strong" style="font-family:sans-serif, Arial;font-weight:bold;" >Garažiran:</span> :garaziran</p>
-                    </td>
-                </tr>
-                <tr style="font-family:sans-serif, Arial;" >
-                    <td style="font-family:sans-serif, Arial;" >
-                        <p style="font-family:sans-serif, Arial;margin-top:0;margin-bottom:0;margin-right:0;margin-left:0;" ><span class="strong" style="font-family:sans-serif, Arial;font-weight:bold;" >Prvi vlasnik:</span> :prvi</p>
-                    </td>
-                </tr>
-                <tr style="font-family:sans-serif, Arial;" >
-                    <td style="font-family:sans-serif, Arial;" >
-                        <p style="font-family:sans-serif, Arial;margin-top:0;margin-bottom:0;margin-right:0;margin-left:0;" ><span class="strong" style="font-family:sans-serif, Arial;font-weight:bold;" >Registracija:</span> :registracija</p>
+                        <p style="font-family:sans-serif, Arial;margin-top:0;margin-bottom:0;margin-right:0;margin-left:0;" ><span class="strong" style="font-family:sans-serif, Arial;font-weight:bold;" >Lokacija: </span> :lokacija</p>
                     </td>
                 </tr>
                 <tr style="font-family:sans-serif, Arial;" >
@@ -103,7 +69,7 @@ def generateMail(message, subject):
 	mail['From'] = 'antonije999@gmail.com'
 	mail['To'] = 'antonije999@gmail.com'
 	
-	html = MIMEText(message, 'html')
+	html = MIMEText(message.encode('utf-8'), 'html')
 	mail.attach(html)
 	return mail.as_string()
 
@@ -112,17 +78,10 @@ def createAdds(res):
 	
 	for add in res:
 		addText = add_template.replace(':carImageLink', getStr(add.image_link))
-		addText = addText.replace(':marka', getStr(add.marka))
-		addText = addText.replace(':model', getStr(add.model))
-		addText = addText.replace(':cijena', getStr(add.cijena))
-		addText = addText.replace(':kilometri', getStr(add.kilometri))
-		addText = addText.replace(':godina', getStr(add.godina))
-		addText = addText.replace(':motor', getStr(add.motor))
-		addText = addText.replace(':garaziran', getStr(add.garaziran))
-		addText = addText.replace(':prvi', getStr(add.vlasnik))
-		addText = addText.replace(':registracija', getStr(add.registracija_mjesec) + '/' + getStr(add.registracija_godina))
-		addText = addText.replace(':datum', getStr(add.datum_objave))
-		addText = addText.replace(':carAdd', getStr(add.link))
+		addText = addText.replace(':cijena', add.cijena)
+		addText = addText.replace(':datum', str(add.datum))
+		addText = addText.replace(':lokacija', add.lokacija)
+		addText = addText.replace(':carAdd', add.link)
 		adds += addText
 		
 	if adds:
@@ -135,18 +94,6 @@ def exeSql(sql):
 	res = conn.execute(sql)
 	conn.close()
 	return res
-	
-def getCarAlert():
-	sql = select([CarAdd])\
-		.where(CarAdd.cijena < 30000)\
-		.where(CarAdd.godina > 2006)\
-		.where(CarAdd.kilometri < 120000)\
-		.where(or_(CarAdd.garaziran == True, CarAdd.garaziran == None))\
-		.where(or_(CarAdd.vlasnik == 'prvi', CarAdd.vlasnik == None))\
-		.where(CarAdd.aktivan == True)\
-		.where(CarAdd.novi == True)
-	
-	return exeSql(sql)
 	
 def getNewCars():
 	sql = select([CarAdd])\
@@ -168,19 +115,13 @@ def getCarMail(carSupplier, subject):
 	addMessage = createAdds(cars)
 	
 	if addMessage:
-		email = generateMail(addMessage, subject)
-		
-		return email
-
-
-def getAlertCarsMail():
-	return getCarMail(getCarAlert, 'DOBAR AUTO PRONAĐEN')
+		return generateMail(addMessage, subject)
 
 def getNewCarsMail():
-	return getCarMail(getNewCars, 'Novi auti')
+	return getCarMail(getNewCars, 'Novi stanovi')
 
 def getUpdatedCarsMail():
-	return getCarMail(getUpdatedCars, 'Snižena cijena autima')
+	return getCarMail(getUpdatedCars, 'Snižena cijena stanovima')
 	
 def getStr(value):
 	if value:
