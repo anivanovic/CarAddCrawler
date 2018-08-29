@@ -52,14 +52,14 @@ class CarAddDbPipeline(object):
 				
 				existingCarAdd = rs.first()
 				if existingCarAdd.cijena != carAdd.cijena:
-					session.query(CarAdd).filter(CarAdd.web_id == carAdd.web_id)\
+					session.query(CarAdd).filter(CarAdd.link == carAdd.link)\
 							.update({
 							CarAdd.aktivan : True,
 							CarAdd.updated : True,
 							CarAdd.cijena : carAdd.cijena
 						})
 				else:
-					session.query(CarAdd).filter(CarAdd.web_id == carAdd.web_id).update({ CarAdd.aktivan : True })
+					session.query(CarAdd).filter(CarAdd.link == carAdd.link).update({ CarAdd.aktivan : True })
 				
 				session.commit()
 				self.stillActive += 1
